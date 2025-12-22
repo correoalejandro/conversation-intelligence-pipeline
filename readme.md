@@ -1,6 +1,6 @@
 # Conversation Intelligence Pipeline
 
-Conversation Intelligence Pipeline is an end-to-end AI pipeline designed to support the operational analysis of conversational data in customer service and debt-collection workflows. It helps teams transform raw conversations into structured semantic insights that can be explored, labeled, and connected to business actions such as follow-up, escalation, and customer segmentation.
+This project is an end-to-end AI-driven pipeline designed to support the operational analysis of conversational data in customer service and debt-collection workflows. It helps teams transform raw conversations into structured semantic insights that can be explored, labeled, and connected to business actions such as follow-up, escalation, and customer segmentation.
 
 The pipeline was built for applied, real-world use: it supports both production-style data ingestion and controlled synthetic data generation, allowing teams to prototype, test, and demonstrate conversational analytics workflows even when real customer data cannot be shared.
 
