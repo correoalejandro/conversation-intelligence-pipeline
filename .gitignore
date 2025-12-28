@@ -40,7 +40,7 @@ zzz_debugs/
 
 # === Project outputs / artifacts (usually not versioned) ===
 
-data/
+#data/
 outputs/
 models/
 media/
