@@ -79,7 +79,7 @@ CLIENTS = {"Carlos": 0.25, "Ana": 0.25, "Javier": 0.25, "Laura": 0.25}
 # AZURE OPENAI CLIENT HELPER
 # ----------------------------
 
-def get_aoai_client() -> AzureOpenAI:
+def get_aoai_client() -> AzureOpenAI | None:
     endpoint = os.getenv(ENV_ENDPOINT)
     key = os.getenv(ENV_KEY)
     deployment = os.getenv(ENV_DEPLOYMENT)
@@ -93,8 +93,12 @@ def get_aoai_client() -> AzureOpenAI:
             ]
             if not val
         ])
-        print(f"❌ Missing environment variables: {missing}", file=sys.stderr)
-        sys.exit(1)
+        print(
+            f"⚠️ Missing environment variables: {missing}. "
+            "Using mock conversation generator.",
+            file=sys.stderr,
+        )
+        return None
     return AzureOpenAI(
         api_key=key,
         azure_endpoint=endpoint,
@@ -225,7 +229,7 @@ def build_system_messages(base_prompt: str, scenario_desc: str, agent: str, clie
     ]
 
 def generate_conversation(
-    aoai_client: AzureOpenAI,
+    aoai_client: AzureOpenAI | None,
     agent: str,
     client_name: str,
     base_prompt: str,
@@ -236,15 +240,26 @@ def generate_conversation(
     messages = build_system_messages(base_prompt, scenario_desc, agent, client_name)
 
     print(f"📞 Generating conversation [{agent} ↔ {client_name}]…")
-    response = aoai_client.chat.completions.create(
-        model=os.environ[ENV_DEPLOYMENT],
-        messages=messages,
-        temperature=temperature,
-        max_tokens=800,
-    )
-    raw_text = response.choices[0].message.content.strip()
-
     start_ts = datetime.now(timezone.utc) - timedelta(days=random.randint(1, 180))
+    if aoai_client is None:
+        raw_text = "\n".join(
+            [
+                f"[{(start_ts).strftime('%Y-%m-%dT%H:%M:%SZ')}] Agente: Hola {client_name}, "
+                f"te escribo por el caso: {scenario_desc}.",
+                f"[{(start_ts + timedelta(minutes=2)).strftime('%Y-%m-%dT%H:%M:%SZ')}] "
+                f"Cliente: Hola {agent}, entiendo. ¿Qué opciones tengo?",
+                f"[{(start_ts + timedelta(minutes=5)).strftime('%Y-%m-%dT%H:%M:%SZ')}] "
+                "Agente: Podemos coordinar un plan de pago flexible.",
+            ]
+        )
+    else:
+        response = aoai_client.chat.completions.create(
+            model=os.environ[ENV_DEPLOYMENT],
+            messages=messages,
+            temperature=temperature,
+            max_tokens=800,
+        )
+        raw_text = response.choices[0].message.content.strip()
 
     parsed =  parse_conversation(raw_text, debug=False)
 
