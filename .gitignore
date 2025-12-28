@@ -39,7 +39,7 @@ zz-utils/
 zzz_debugs/
 
 # === Project outputs / artifacts (usually not versioned) ===
-_data_layer/
+
 data/
 outputs/
 models/
