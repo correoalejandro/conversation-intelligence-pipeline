@@ -67,70 +67,59 @@ Rather than replacing human agents or analysts, the system supports them by orga
 ## ⛓ Pipeline stages and entry points
 
 ### Stage 0 — Ingest / Generate
-- `_logic_layer/0.v12.addSyntheticConversations.py`  
+- `_logic_layer/0.addSyntheticConversations.py`  
   Registers conversation batches from JSON/JSONL files.
-- `_logic_layer/0.v13.synthetic_cobranza_generator.py`  
+- `_logic_layer/0.synthetic_cobranza_generator.py`  
   Generates synthetic Spanish call-center conversations in a controlled manner.
-- `_logic_layer/0.v14.scenario_Control.py`  
+- `_logic_layer/0.scenario_control.py`  
   Runs predefined synthetic scenarios for testing and demonstrations.
 
 ### Stage 1 — Embeddings
-- `_logic_layer/1.v11.embedd_conversations.py`  
+- `_logic_layer/1.embed_conversations.py`  
   Creates conversation-level embeddings.
-- `_logic_layer/1.v12.embed_messages_menu.py`  
-  Creates message-level embeddings via a menu-driven workflow.
+- `_logic_layer/1.embed_messages_menu.py`  
+  Creates message-level embeddings via an interactive CLI workflow.
 
 ### Stage 2 — Clustering and batch analysis
-- `_logic_layer/2.v13.embedding_analysis.py`  
-  Clusters conversation-level embeddings.
-- `_logic_layer/2.v14.batch_selector.py`  
+- `_logic_layer/2.embedding_analysis.py`  
+  Clusters embeddings and computes batch-level summaries.
+- `_logic_layer/2.batch_selector.py`  
   Allows batch selection prior to analysis.
-- `_logic_layer/2.v15.batch_analysis_menu.py`  
-  Clusters message-level embeddings.
+- `_logic_layer/2.batch_analysis_menu.py`  
+  Runs message-level clustering and inspection via CLI.
 
 ### Stage 3 — Text processing
-- `_logic_layer/3.v13.text_process.py`  
+- `_logic_layer/3.text_process.py`  
   Cleans and normalizes Spanish text.
 
 ### Stage 4 — Cluster labeling
-- `_logic_layer/4.v11.topicExtractor.py`  
-  Extracts top keywords per cluster.
-- `_logic_layer/4.v12.topicExtractor.py`  
-  Improves vocabulary handling and adds confirmation.
-- `_logic_layer/4.v13.topicExtractor.py`  
-  Adds richer configuration and optional AI-generated summaries.
-- `_logic_layer/4.v14.topicExtractor.py`  
-  Produces merged tables joining clusters and keywords.
+- `_logic_layer/4.topic_extractor.py`  
+  Extracts and refines human-readable cluster labels (iterative improvements consolidated).
 
 ### Stage 5 — Export
-- `_logic_layer/5.v5.uploadToCAS.py`  
+- `_logic_layer/5.uploadToCAS.py`  
   Uploads result tables to SAS CAS.
 
----
-
-## 📂 Project structure (reference)
-
-- `_logic_layer/` — Core pipeline stages.
-- `_presentation_layer/` — Menu-based interfaces and UI scripts.
-- `_connections_layer/` — External connectors.
-- `_2_new_logic/` — Experimental scripts and notebooks.
-- `6.v7.web_ui_app.py` — Web UI entry point.
+### Stage 6 — Presentation & Interaction
+- `_presentation_layer/6.cli_menu.py`  
+  CLI-based launcher for running and inspecting pipeline stages.
+- `_presentation_layer/6.web_ui.py`  
+  Web-based UI for exploring results and summaries.
+- `_presentation_layer/reporting_tools/`  
+  Reporting and presentation artifacts (non-core, exploratory outputs).
 
 ---
+## 📂 Project structure
 
-## 📈 Repository Insights
-
-<div align="center">
-  <img height="165em" src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight&count_private=true&hide_border=true"/>
-  <img height="165em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&langs_count=8&theme=tokyonight&hide_border=true"/>
-</div>
+- `_data_layer/` — Data models, paths, registry, and backends (I/O and artifact management).
+- `_logic_layer/` — Core multi-stage pipeline logic (Stages 0–5).
+- `_presentation_layer/` — Presentation and interaction layer (Stage 6).
+- `_connections_layer/` — External connectors and integrations.
 
 ---
 
 ## 📝 Notes
 
-This repository reflects an applied, evolving pipeline. Multiple versioned scripts coexist to support experimentation and comparison across different pipeline variants. For demos or operational runs, only selected versions are typically executed.
+This repository reflects an **applied, curated pipeline** developed through iterative experimentation.
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:005AA7,100:007BFF&height=100&section=footer"/>
-</p>
+Earlier exploratory variants and reporting artifacts have been **consolidated or archived** to keep the main execution paths clear and reviewable. The current structure highlights the **canonical pipeline stages (Stages 0–6)** used for demonstrations, analysis, and operational-style runs.
