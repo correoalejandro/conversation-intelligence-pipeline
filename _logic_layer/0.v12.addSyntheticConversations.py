@@ -2,6 +2,8 @@ from __future__ import annotations
 import uuid
 """Synthetic Conversation Generator v11
 
+
+
 Adds the extra functionality that existed in v8 but was dropped in v10:
 • Scenario catalogue & chooser taken from the markdown prompt.
 • Prompt hygiene (system rule + intro‑line stripping).
@@ -14,6 +16,11 @@ What we intentionally **leave out** (per user request):
 • The pure CLI interface (`click`). We keep the interactive menu instead.
 • Custom participant labels.
 """
+
+# NOTE:
+# Some path and locale settings are development conveniences.
+# In production or shared environments, these would be externalized
+# via configuration or environment variables.
 
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
