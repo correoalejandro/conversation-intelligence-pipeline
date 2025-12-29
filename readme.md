@@ -53,6 +53,20 @@ Rather than replacing human agents or analysts, the system supports them by orga
 
 ---
 
+### How to navigate and use this repository
+
+The repository is organized so that each pipeline stage can be read, executed, and reasoned about independently.
+
+- Readers can start from the **pipeline stages below** to understand the end-to-end flow.
+- In the `_logic_layer/`, each stage may be implemented across a small set of scripts that cover batch selection, main processing, or interactive execution, depending on how that step is typically run.
+- Supporting components (data access, persistence, presentation) are kept separate so the core processing logic remains easy to follow and adapt.
+
+This structure supports both individual experimentation and reuse by other practitioners exploring conversational analytics pipelines.
+
+
+---
+
+
 ## 🛠 What the pipeline does (high-level)
 
 - Ingests or synthesizes conversation batches.
@@ -62,7 +76,29 @@ Rather than replacing human agents or analysts, the system supports them by orga
 - Extracts keywords per cluster to produce human-readable labels.
 - Exports result tables to SAS CAS for reporting and analysis.
 
----
+## 📊 Example outputs
+
+Below are representative outputs produced by the pipeline at different stages of analysis.  
+They illustrate how conversational data moves from semantic structure to operational insight.
+
+### Semantic exploration
+*Semantic map of customer messages grouped by similarity.*
+
+![Semantic map of customer messages](_presentation_layer/assets/semantic_map_1.png)
+![Semantic map of customer messages](_presentation_layer/assets/semantic_map_2.png)
+
+### Operational dashboard
+*Conversation intent and scenarios summarized by agent and time period.*
+
+![Operational dashboard](_presentation_layer/assets/operational_dashboard.png)
+
+### From language patterns to actions
+*Example of how clustered message patterns are translated into recommended operational actions.*
+
+![Text to action mapping](_presentation_layer/assets/text_to_action_mapping.png)
+
+<small>Extended analytical reports and additional views are available separately.</small>
+
 
 ## ⛓ Pipeline stages and entry points
 
@@ -109,6 +145,7 @@ Rather than replacing human agents or analysts, the system supports them by orga
   Reporting and presentation artifacts (non-core, exploratory outputs).
 
 ---
+
 ## 📂 Project structure
 
 - `_data_layer/` — Data models, paths, registry, and backends (I/O and artifact management).
