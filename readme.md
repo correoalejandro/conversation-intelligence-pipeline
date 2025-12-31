@@ -21,15 +21,16 @@
 ---
 ## 📑 Index
 
-1. [Key design features](#-key-design-features)
-2. [Competitive and differentiating aspects](#-competitive-and-differentiating-aspects)
-3. [How to navigate and use this repository](#how-to-navigate-and-use-this-repository)
-4. [What the pipeline does (high-level)](#-what-the-pipeline-does-high-level)
-5. [Example outputs](#-example-outputs)
+1. [Overview](#overview)
+2. [Key design features](#-key-design-features)
+3. [Competitive and differentiating aspects](#-competitive-and-differentiating-aspects)
+4. [How to navigate and use this repository](#how-to-navigate-and-use-this-repository)
+5. [What the pipeline does (high-level)](#-what-the-pipeline-does-high-level)
+6. [Example outputs](#-example-outputs)
    - [Semantic exploration](#semantic-exploration)
    - [Operational dashboard](#operational-dashboard)
    - [From language patterns to actions](#from-language-patterns-to-actions)
-6. [Pipeline stages and entry points](#-pipeline-stages-and-entry-points)
+7. [Pipeline stages and entry points](#-pipeline-stages-and-entry-points)
    - [Stage 0 — Ingest / Generate](#stage-0--ingest--generate)
    - [Stage 1 — Embeddings](#stage-1--embeddings)
    - [Stage 2 — Clustering and batch analysis](#stage-2--clustering-and-batch-analysis)
@@ -37,8 +38,9 @@
    - [Stage 4 — Cluster labeling](#stage-4--cluster-labeling)
    - [Stage 5 — Export](#stage-5--export)
    - [Stage 6 — Presentation & Interaction](#stage-6--presentation--interaction)
-7. [Project structure](#-project-structure)
-8. [Notes](#-notes)
+8. [Project structure](#-project-structure)
+9. [Notes](#-notes)
+
 ---
 
 
