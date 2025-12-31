@@ -132,7 +132,21 @@ They illustrate how conversational data moves from semantic structure to operati
 
 ### Stage 0 — Ingest / Generate
 - `_logic_layer/0.addSyntheticConversations.py`  
+ Entry point for conversation ingestion and synthetic batch generation.
+  The script produces structured conversation batches and prepares them
+  for downstream analysis stages.
 
+  Capabilities:
+  - Generation of Spanish call-center conversations using LLMs (Azure OpenAI).
+  - Scenario-based generation, with scenarios defined in markdown prompt files.
+  - Interactive execution via a menu-driven interface.
+  - Message-level timestamps and simulated agent–client participants.
+  - Batch-oriented processing with deterministic folder and file structure.
+  - Batch artefacts:
+    - Structured JSON files containing metadata and conversations.
+    - Human-readable TXT previews for inspection.
+  - Concurrency-safe batch writing via file locking.
+  - Registration of prompts, batches, and conversations with metadata auditing.
 
 ### Stage 1 — Embeddings
 - `_logic_layer/1.embed_conversations.py`  
