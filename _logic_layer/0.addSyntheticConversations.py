@@ -8,34 +8,45 @@ This script implements the synthetic data generation stage of an end-to-end
 conversation intelligence pipeline for customer service and debt-collection
 workflows.
 
-It generates batches of Spanish agent–customer conversations from a markdown
-prompt and explicit scenario definitions, producing structured, timestamped
+It generates batches of Spanish agent–customer conversations from markdown
+prompts and explicit scenario definitions, producing structured, timestamped
 message data suitable for downstream embedding, clustering, labeling, and
 analytics tasks.
 
 Design goals
 ------------
-- Separate configuration, generation, parsing, and persistence into explicit
-  and inspectable layers.
+- Separate specification (prompts), generation, parsing, and persistence into
+  explicit and inspectable layers.
 - Support batch-level reproducibility, metadata auditing, and failure isolation.
 - Enable controlled variability through scenarios, participant sampling, and
   temperature.
 
+Human-in-the-loop operation
+---------------------------
+- The script is intentionally operator-driven and easy to use.
+- An interactive menu allows a human operator to:
+  - inspect available prompt files,
+  - choose which prompt and scenario set to run,
+  - configure batch size and generation mode.
+- Prompts are regular markdown files: they can be modified or extended, and new
+  prompts can be added without changing code.
+
 Engineering highlights
 ----------------------
-- Single semantic generation core with deterministic upstream and downstream
-  components.
-- Batch isolation with file locking to prevent concurrent write corruption.
-- Registry-backed lineage tracking for prompts, batches, and conversations.
+- Prompt-driven specification: prompts act as domain specifications rather than
+  ad-hoc text instructions.
+- Batch-oriented execution with deterministic artefacts and file locking to
+  prevent concurrent write corruption.
+- Registry-backed lineage tracking for prompts, batches, and conversations,
+  enabling later inspection and retrieval.
 
 Scope notes
 -----------
 - This script focuses on synthetic generation only; downstream steps
   (embeddings, UMAP, clustering, labeling, visualization) are handled by
   separate pipeline stages.
-- An interactive menu is intentionally retained to allow inspection and
-  controlled execution during batch generation.
 """
+
 
 
 # NOTE:

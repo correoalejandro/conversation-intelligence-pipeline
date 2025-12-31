@@ -57,11 +57,14 @@ Organizations handling large volumes of customer conversations face two recurrin
 - Patterns related to intent, risk, or escalation are difficult to surface consistently.
 
 This pipeline addresses those problems by:
+- Producing structured, analysis-ready conversational data through prompt-driven specification and batch-oriented processing, ensuring control over semantics, structure, and variability.
+
 - Structuring conversations using embeddings and clustering.
 - Extracting behavioral signals that can guide operational decisions.
 - Producing outputs that are interpretable and exportable to reporting systems.
 
-Rather than replacing human agents or analysts, the system supports them by organizing conversational data into actionable, reviewable structures.
+The system places human involvement at the level of prompt design, scenario definition, and batch configuration, while generation and analysis are executed automatically.
+
 
 ---
 
