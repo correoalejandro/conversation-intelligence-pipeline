@@ -1,21 +1,42 @@
 from __future__ import annotations
 import uuid
-"""Synthetic Conversation Generator v11
-
-
-
-Adds the extra functionality that existed in v8 but was dropped in v10:
-• Scenario catalogue & chooser taken from the markdown prompt.
-• Prompt hygiene (system rule + intro‑line stripping).
-• Rich message parsing with realistic timestamps and per‑turn delays.
-• Batch‑level artefacts: a single JSON (meta + conversations) **and** a human‑readable
-  TXT preview for quick inspection.
-• File‑locking so concurrent runs cannot corrupt the batch files.
-
-What we intentionally **leave out** (per user request):
-• The pure CLI interface (`click`). We keep the interactive menu instead.
-• Custom participant labels.
 """
+Synthetic Conversation Generator
+Modular, Scenario-Driven, and Auditable
+
+This script implements the synthetic data generation stage of an end-to-end
+conversation intelligence pipeline for customer service and debt-collection
+workflows.
+
+It generates batches of Spanish agent–customer conversations from a markdown
+prompt and explicit scenario definitions, producing structured, timestamped
+message data suitable for downstream embedding, clustering, labeling, and
+analytics tasks.
+
+Design goals
+------------
+- Separate configuration, generation, parsing, and persistence into explicit
+  and inspectable layers.
+- Support batch-level reproducibility, metadata auditing, and failure isolation.
+- Enable controlled variability through scenarios, participant sampling, and
+  temperature.
+
+Engineering highlights
+----------------------
+- Single semantic generation core with deterministic upstream and downstream
+  components.
+- Batch isolation with file locking to prevent concurrent write corruption.
+- Registry-backed lineage tracking for prompts, batches, and conversations.
+
+Scope notes
+-----------
+- This script focuses on synthetic generation only; downstream steps
+  (embeddings, UMAP, clustering, labeling, visualization) are handled by
+  separate pipeline stages.
+- An interactive menu is intentionally retained to allow inspection and
+  controlled execution during batch generation.
+"""
+
 
 # NOTE:
 # Some path and locale settings are development conveniences.

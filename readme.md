@@ -19,6 +19,28 @@
 </p>
 
 ---
+## 📑 Index
+
+1. [Key design features](#-key-design-features)
+2. [Competitive and differentiating aspects](#-competitive-and-differentiating-aspects)
+3. [How to navigate and use this repository](#how-to-navigate-and-use-this-repository)
+4. [What the pipeline does (high-level)](#-what-the-pipeline-does-high-level)
+5. [Example outputs](#-example-outputs)
+   - [Semantic exploration](#semantic-exploration)
+   - [Operational dashboard](#operational-dashboard)
+   - [From language patterns to actions](#from-language-patterns-to-actions)
+6. [Pipeline stages and entry points](#-pipeline-stages-and-entry-points)
+   - [Stage 0 — Ingest / Generate](#stage-0--ingest--generate)
+   - [Stage 1 — Embeddings](#stage-1--embeddings)
+   - [Stage 2 — Clustering and batch analysis](#stage-2--clustering-and-batch-analysis)
+   - [Stage 3 — Text processing](#stage-3--text-processing)
+   - [Stage 4 — Cluster labeling](#stage-4--cluster-labeling)
+   - [Stage 5 — Export](#stage-5--export)
+   - [Stage 6 — Presentation & Interaction](#stage-6--presentation--interaction)
+7. [Project structure](#-project-structure)
+8. [Notes](#-notes)
+---
+
 
 This project is an end-to-end AI pipeline designed to support operational analysis of conversational data in customer service and debt-collection workflows. It helps teams transform raw conversations into structured semantic insights that can be explored, labeled, and connected to business actions such as follow-up, escalation, and customer segmentation.
 
@@ -43,13 +65,18 @@ Rather than replacing human agents or analysts, the system supports them by orga
 
 ## 🚀 Competitive and differentiating aspects
 
-- **Controlled AI-based synthetic conversation generation** The pipeline can generate realistic Spanish call-center conversations in a controlled manner, enabling safe experimentation, scenario testing, and demonstrations without exposing sensitive data.
+- **Controlled AI-based synthetic conversation generation** - **Controlled AI-based synthetic conversation generation**  
+  The pipeline includes a production-style synthetic data generator that produces
+  scenario-driven, timestamped Spanish call-center conversations in batch form,
+  with full metadata lineage, auditability, and human-readable previews.
+  This enables safe experimentation, reproducible demos, and pipeline testing
+  without exposing sensitive customer data.
 
 - **Pipeline design from ingestion to export** The system is structured as a multi-stage pipeline: ingest/generate → embed → cluster → normalize → label → export, making it easier to reason about, debug, and extend.
 
 - **Analysis at multiple levels** Supports both conversation-level and message-level embeddings and clustering, allowing analysis at different granularities depending on the operational need.
 
-- **Designed for downstream decision workflows** Outputs are structured for dashboards, reporting, and BI tools (SAS CAS), not only for exploratory research.
+- **Designed for downstream decision workflows** Outputs are structured for dashboards, reporting, and BI tools (SAS Viya), not only for exploratory research.
 
 ---
 
@@ -69,12 +96,13 @@ This structure supports both individual experimentation and reuse by other pract
 
 ## 🛠 What the pipeline does (high-level)
 
-- Ingests or synthesizes conversation batches.
+- Ingests existing conversation batches or generates controlled synthetic batches
+  with full provenance, suitable for downstream embedding, clustering, and analysis.
 - Converts text into numeric representations using embeddings.
 - Groups similar conversations or messages via clustering.
 - Cleans and normalizes Spanish text.
 - Extracts keywords per cluster to produce human-readable labels.
-- Exports result tables to SAS CAS for reporting and analysis.
+- Exports result tables to SAS Viya (CAS) for reporting and analysis.
 
 ## 📊 Example outputs
 
@@ -104,11 +132,7 @@ They illustrate how conversational data moves from semantic structure to operati
 
 ### Stage 0 — Ingest / Generate
 - `_logic_layer/0.addSyntheticConversations.py`  
-  Registers conversation batches from JSON/JSONL files.
-- `_logic_layer/0.synthetic_cobranza_generator.py`  
-  Generates synthetic Spanish call-center conversations in a controlled manner.
-- `_logic_layer/0.scenario_control.py`  
-  Runs predefined synthetic scenarios for testing and demonstrations.
+
 
 ### Stage 1 — Embeddings
 - `_logic_layer/1.embed_conversations.py`  
@@ -118,7 +142,7 @@ They illustrate how conversational data moves from semantic structure to operati
 
 ### Stage 2 — Clustering and batch analysis
 - `_logic_layer/2.embedding_analysis.py`  
-  Clusters embeddings and computes batch-level summaries.
+  Clusters embeddings (UMAP + HDBSCAN) and computes batch-level summaries
 - `_logic_layer/2.batch_selector.py`  
   Allows batch selection prior to analysis.
 - `_logic_layer/2.batch_analysis_menu.py`  
@@ -134,13 +158,13 @@ They illustrate how conversational data moves from semantic structure to operati
 
 ### Stage 5 — Export
 - `_logic_layer/5.uploadToCAS.py`  
-  Uploads result tables to SAS CAS.
+  Uploads result tables to SAS Viya (CAS).
 
 ### Stage 6 — Presentation & Interaction
 - `_presentation_layer/6.cli_menu.py`  
   CLI-based launcher for running and inspecting pipeline stages.
 - `_presentation_layer/6.web_ui.py`  
-  Web-based UI for exploring results and summaries.
+  Streamlit-based web UI for exploring results and summaries.
 - `_presentation_layer/reporting_tools/`  
   Reporting and presentation artifacts (non-core, exploratory outputs).
 
